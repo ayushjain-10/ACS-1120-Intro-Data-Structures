@@ -18,7 +18,8 @@ def index():
 
 @app.route('/tweet', methods=['POST'])
 def create_tweet():
-  tweet(request.form['sentence'])
+  status= request.form['sentence']
+  twitter.tweet(status)
   return redirect('/')
 
 if __name__ == '__main__':
