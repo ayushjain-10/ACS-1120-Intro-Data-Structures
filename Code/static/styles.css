@@ -1,4 +1,4 @@
-html, body {
+/* html, body {
   width: 100vw;
   height: 100vh;
   background-color: #cdcdcd;
@@ -22,7 +22,7 @@ html, body {
 
 .tweet-profile {
   width: 110px;
-  height: 120px;
+  height: px;
   border-radius: 50%;
 }
 
@@ -81,4 +81,4 @@ button:hover {
 
 #tweet-button {
   height: fit-content;
-}
+} */
