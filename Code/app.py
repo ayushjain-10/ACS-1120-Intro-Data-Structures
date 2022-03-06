@@ -1,21 +1,25 @@
-"""Main script, uses other modules to generate sentences."""
-from flask import Flask
-
+from crypt import methods
+from flask import Flask, redirect, render_template, request
+from twitter import tweet
+from tokens import tokenize
+from dictogram import Dictogram
+from sentence import get_sentance, create_markov, create_histogram
+from markov import Markov
 
 app = Flask(__name__)
+TEXT_FILE = 'data/sample.txt'
+words = tokenize(TEXT_FILE)
+histogram = create_histogram(words)
+markov = Markov(histogram, words)
 
-# TODO: Initialize your histogram, hash table, or markov chain here.
-# Any code placed here will run only once, when the server starts.
+@app.route('/')
+def index():
+  return render_template('index.html', title='Musk Tweet', generated_text=get_sentance(histogram, markov, 5))
 
+@app.route('/tweet', methods=['POST'])
+def create_tweet():
+  tweet(request.form['sentence'])
+  return redirect('/')
 
-@app.route("/")
-def home():
-    """Route that returns a web page containing the generated text."""
-    return "<p>TODO: Return a word here!</p>"
-
-
-if __name__ == "__main__":
-    """To run the Flask server, execute `python app.py` in your terminal.
-       To learn more about Flask's DEBUG mode, visit
-       https://flask.palletsprojects.com/en/2.0.x/server/#in-code"""
-    app.run(debug=True)
+if __name__ == '__main__':
+  app.run(host='0.0.0.0', port='3000', debug=True)
