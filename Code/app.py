@@ -14,7 +14,7 @@ markov = Markov(histogram, words)
 
 @app.route('/')
 def index():
-  return render_template('index.html', title='Musk Tweet', generated_text=get_sentance(histogram, markov, 5))
+  return render_template('index.html', title='Cuban Tweet', generated_text=get_sentance(histogram, markov, 5))
 
 @app.route('/tweet', methods=['POST'])
 def create_tweet():
