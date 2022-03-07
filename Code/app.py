@@ -1,4 +1,5 @@
 from crypt import methods
+import twitter
 from flask import Flask, redirect, render_template, request
 from twitter import tweet
 from tokens import tokenize
@@ -18,7 +19,9 @@ def index():
 
 @app.route('/tweet', methods=['POST'])
 def create_tweet():
-  tweet(request.form['sentence'])
+  status = request.form['sentence']
+  print(status)
+  twitter.tweet(status)
   return redirect('/')
 
 if __name__ == '__main__':
