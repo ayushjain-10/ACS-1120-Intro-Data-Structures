@@ -1,10 +1,12 @@
 import random
+from collections import defaultdict
 
-def random_word(histogram):
-    words = list(histogram.keys())
+def random_word(sentence):
+    histogram = defaultdict(int)
+    words = sentence.split()
+    for word in words:
+        histogram[word] += 1
     frequencies = list(histogram.values())
-    return random.choices(words, weights=frequencies)[0]
+    return random.choices(list(histogram.keys()), weights=frequencies)[0]
 
-histogram = {'one': 1, 'fish': 4, 'two': 1, 'red': 1, 'blue': 1}
-random_word = random_word(histogram)
-print(random_word)
+

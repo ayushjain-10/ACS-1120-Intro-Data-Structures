@@ -1,5 +1,7 @@
 """Main script, uses other modules to generate sentences."""
 from flask import Flask
+from sampling import random_word
+
 
 
 app = Flask(__name__)
@@ -8,10 +10,16 @@ app = Flask(__name__)
 # Any code placed here will run only once, when the server starts.
 
 
+
 @app.route("/")
 def home():
     """Route that returns a web page containing the generated text."""
-    return "<p>TODO: Return a word here!</p>"
+    # return random word generated from random_word
+    sentence = "Hi!How are you"
+    word = random_word(sentence)
+    return word
+
+
 
 
 if __name__ == "__main__":
