@@ -14,10 +14,9 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     """Route that returns a web page containing the generated text."""
-    # return random word generated from random_word
-    # sentence = "Hi!How are you"
-    # word = random_word(sentence)
-    return 'hi'
+    sentence = "Hi!How are you"
+    word = random_word(sentence)
+    return word
 
 
 
