@@ -20,25 +20,58 @@ class Listogram(list):
 
     def add_count(self, word, count=1):
         """Increase frequency count of given word by given count amount."""
-        # TODO: Increase word frequency by count
+        # If word is already in list, increase its count by count
+        # Otherwise, add the word to the list with count as its count
+        for i, (w, c) in enumerate(self):
+            if w == word:
+                self[i] = (w, c + count)
+                break
+        else:
+            self.append((word, count))
+            self.types += 1
+        self.tokens += count
 
     def frequency(self, word):
         """Return frequency count of given word, or 0 if word is not found."""
-        # TODO: Retrieve word frequency count
+        # Loop through all word-count pairs in list until word is found
+        # Return count for word if found, otherwise return 0
+        for w, c in self:
+            if w == word:
+                return c
+        return 0
 
     def __contains__(self, word):
         """Return boolean indicating if given word is in this histogram."""
-        # TODO: Check if word is in this histogram
+        # Check if word is in list of word-count pairs
+        for w, c in self:
+            if w == word:
+                return True
+        return False
 
     def index_of(self, target):
         """Return the index of entry containing given target word if found in
         this histogram, or None if target word is not found."""
-        # TODO: Implement linear search to find index of entry with target word
+        # Loop through all word-count pairs in list until word is found
+        # Return index of word-count pair if found, otherwise return None
+        for i, (w, c) in enumerate(self):
+            if w == target:
+                return i
+        return None
 
     def sample(self):
         """Return a word from this histogram, randomly sampled by weighting
         each word's probability of being chosen by its observed frequency."""
-        # TODO: Randomly choose a word based on its frequency in this histogram
+        # Sum the counts of all words in the list
+        # Generate a random number between 0 and the total count
+        # Loop through the list of word-count pairs, summing the counts,
+        # until the sum is greater than or equal to the random number
+        total_count = sum(c for w, c in self)
+        random_count = random.randint(1, total_count)
+        count_sum = 0
+        for word, count in self:
+            count_sum += count
+            if count_sum >= random_count:
+                return word
 
 
 def print_histogram(word_list):
@@ -83,11 +116,12 @@ def print_histogram_samples(histogram):
         sampled_freq = samples / samples_hist.tokens
         # Calculate error between word's sampled and observed frequency
         error = (sampled_freq - observed_freq) / observed_freq
-        color = green if abs(error) < 0.05 else yellow if abs(error) < 0.1 else red
+        color = green if abs(error) < 0.05 else yellow if abs(
+            error) < 0.1 else red
         print('| {!r:<9} '.format(word)
-            + '| {:>4} = {:>6.2%} '.format(count, observed_freq)
-            + '| {:>4} = {:>6.2%} '.format(samples, sampled_freq)
-            + '| {}{:>+7.2%}{} |'.format(color, error, reset))
+              + '| {:>4} = {:>6.2%} '.format(count, observed_freq)
+              + '| {:>4} = {:>6.2%} '.format(samples, sampled_freq)
+              + '| {}{:>+7.2%}{} |'.format(color, error, reset))
     print(divider)
     print()
 
