@@ -52,36 +52,67 @@ class LinkedList:
 
     def length(self):
         """Return the length of this linked list by traversing its nodes.
-        TODO: Running time: O(n) Why and under what conditions?"""
-        # TODO: Loop through all nodes and count one for each
+        Running time: O(n) because we need to loop through all n nodes to count them."""
+        count = 0
+        node = self.head
+        while node is not None:
+            count += 1
+            node = node.next
+        return count
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
-        TODO: Running time: O(???) Why and under what conditions?"""
-        # TODO: Create new node to hold given item
-        # TODO: If self.is_empty() == True set the head and the tail to the new node
-        # TODO: Else append node after tail
+        Running time: O(1) because we maintain a reference to the tail of the list."""
+        new_node = Node(item)
+        if self.is_empty():
+            self.head = new_node
+        else:
+            self.tail.next = new_node
+        self.tail = new_node
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
-        TODO: Running time: O(???) Why and under what conditions?"""
-        # TODO: Create new node to hold given item
-        # TODO: Prepend node before head, if it exists
+        Running time: O(1) because we maintain a reference to the head of the list."""
+        new_node = Node(item)
+        if self.is_empty():
+            self.tail = new_node
+        else:
+            new_node.next = self.head
+        self.head = new_node
 
     def find(self, matcher):
         """Return an item from this linked list if it is present.
-        TODO: Best case running time: O(???) Why and under what conditions?
-        TODO: Worst case running time: O(???) Why and under what conditions?"""
-        # TODO: Loop through all nodes to find item, if present return True otherwise False
+        Best case running time: O(1) if the item is at the head of the list.
+        Worst case running time: O(n) if the item is not in the list or at the tail."""
+        node = self.head
+        while node is not None:
+            if node.data == matcher:
+                return node.data
+            node = node.next
+        return None
+
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
-        TODO: Best case running time: O(???) Why and under what conditions?
-        TODO: Worst case running time: O(???) Why and under what conditions?"""
-        # TODO: Loop through all nodes to find one whose data matches given item
-        # TODO: Update previous node to skip around node with matching data
-        # TODO: Otherwise raise error to tell user that delete has failed
-        # Hint: raise ValueError('Item not found: {}'.format(item))
+        Best case running time: O(1) if the item is at the head of the list.
+        Worst case running time: O(n) if the item is not in the list or at the tail."""
+        node = self.head
+        previous_node = None
+        while node is not None:
+            if node.data == item:
+                if previous_node is None:
+                    self.head = node.next
+                    if self.tail == node:
+                        self.tail = None
+                else:
+                    previous_node.next = node.next
+                    if self.tail == node:
+                        self.tail = previous_node
+                return
+            else:
+                previous_node = node
+                node = node.next
+        raise ValueError('Item not found: {}'.format(item))
 
 
 def test_linked_list():
