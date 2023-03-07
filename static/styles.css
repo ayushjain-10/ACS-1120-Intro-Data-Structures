@@ -1,0 +1,107 @@
+:root{
+    --white: #ffffff;
+    --bg: #000000;
+    --blue: #2797dd;
+    --grey: #6e767d;
+    --pink: #f72381;
+    --font-base: 'Poppins', sans-serif;
+    --body1-regular: 400 1rem/1.75rem var(--font-base);
+    --body1-bold: 700 1rem/1.75rem var(--font-base);
+    --body2-bold: 700 0.75rem/1.5rem var(--font-base);
+    --body2-regular: 400 0.75rem/1.375rem var(--font-base);
+  }
+
+body{
+    font: var(--body2-regular);
+    background: var(--bg);
+    color: #17ddb2;
+    block-size: 100vh;
+    margin: 0;
+  
+    justify-content: center;
+    align-items: center;
+  }
+  
+  @media screen and (min-width:700px){
+    body{
+      display: flex;
+       font: var(--body1-regular);
+    }
+  }
+
+  .tweet{
+    border: 1px solid var(--grey);
+    max-inline-size: 43.75rem;
+    inline-size: 100%;
+    padding: 1rem;
+  
+    display: flex;
+    gap: 1rem;
+    /* box-sizing: border-box; */
+  }
+  
+  .tweet h2, .tweet p, .tweet h4{
+    margin: 0;
+  }
+  
+  
+  .tweet-profile{
+    inline-size: 5rem;
+  
+  }
+  
+  .tweet-text{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    /* background: brown; */
+  }
+  
+  
+  .tweet-username{
+    /* border: 1px solid yellow; */
+    margin-block-end: .5rem;
+  
+  }
+  
+  .tweet-username h2{
+    font: var(--body2-bold);
+    color: var(--white);
+  }
+  
+  .tweet-username{
+    color: #bf091a;
+  }
+  
+  .tweet-previewUrl{
+    /* border: 1px solid orange; */
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    border-radius: 1.5rem;
+    border: 1px solid var(--grey);
+    overflow: hidden;
+  
+  }
+  
+  .tweet a{
+    color: var(--blue);
+  }
+
+  button{
+    border-radius: 10%;
+    border: 4px solid var(--grey);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    inline-size: auto;
+    block-size: auto;
+    cursor: pointer;
+    transition: background 0.5s;
+    outline: none;
+  }
+  
+  button:focus, button:hover{
+    background:var(--blue);
+  }
