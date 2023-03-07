@@ -1,7 +1,12 @@
 """Main script, uses other modules to generate sentences."""
-from flask import Flask
-from sampling import random_word
-
+from crypt import methods
+import twitter
+from flask import Flask, redirect, render_template, request
+from twitter import tweet
+from tokens import tokenize
+from dictogram import Dictogram
+# import get sentence from markov
+from markov import MarkovChain
 
 
 app = Flask(__name__)
@@ -11,12 +16,18 @@ app = Flask(__name__)
 
 
 
-@app.route("/")
-def home():
-    """Route that returns a web page containing the generated text."""
-    sentence = "Hi How are you"
-    word = random_word(sentence)
-    return word
+@app.route('/')
+def index():
+#   store the new sentence generated from markov.py in generated_text
+    markov = MarkovChain('output.txt')
+    return render_template('index.html', title='Cuban Tweet', generated_text= markov.compose_sentence(10))
+
+@app.route('/tweet', methods=['POST'])
+def create_tweet():
+  status = request.form['sentence']
+  print(status)
+  twitter.tweet(status)
+  return redirect('/')
 
 
 

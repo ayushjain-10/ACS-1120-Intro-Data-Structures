@@ -1,12 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tweet Generator</title>
-</head>
-<body>
-    <blockquote>TODO: Replace this text with the sentence you generated!</blockquote>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+  <div class="tweet">
+      <div class="tweet-header">
+        <p class="tweet-username"><a href="https://twitter.com/CubanDummy" target="_blank">Link to Twitter Account</a></p>
+        <p class="tweet-username">@Jordan Peterson Bot</p>
+      </div>
+      <div class="tweet-content">
+        <p class="tweet-text" name="sentence">{{ generated_text }}</p>
+      </div>
+    </div>
+    <form action="/tweet" method="POST">
+      <input type="hidden" name="sentence" value="{{ generated_text }}">
+      <button type="submit" id="tweet-button">Tweet</button>
+      <button id="generate">Generate</button>
+    </form>
+  </div>
+{% endblock %}

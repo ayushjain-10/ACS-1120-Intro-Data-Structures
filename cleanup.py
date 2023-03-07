@@ -13,6 +13,8 @@ def cleanup(text):
     text = re.sub(r'Q3', '', text)
     text = re.sub(r'AM', '', text)
     text = re.sub(r'RB', '', text)
+    text = re.sub(r'youtube', '', text)
+    text = re.sub(r'Youtube', '', text)
     
 
     # Remove colon
